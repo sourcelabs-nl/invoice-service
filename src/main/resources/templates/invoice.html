@@ -13,8 +13,9 @@
     </style>
 </head>
 <body th:inline="text" >
+<img th:src="@{classpath:templates/download.jpeg}" width="300px;" style="border:1px solid black;" />
 <h1>Invoice for <span th:text="${name}"></span></h1>
-<table width="100%" border="1px">
+<table width="100%" style="border: 1px solid #606060;">
     <tr>
         <td>Work done by [[${name}]]</td>
         <td width="20%">€ 20</td>

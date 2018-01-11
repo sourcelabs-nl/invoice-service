@@ -1,4 +1,4 @@
-package nl.sourcelabs.invoicingservice
+package nl.sourcelabs.invoicingservice.configuration
 
 import org.springframework.context.annotation.*
 import org.springframework.context.annotation.Configuration
