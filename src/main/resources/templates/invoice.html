@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        @page {
+            margin:0px;
+            padding:5px;
+        }
+
+        html, body, div, span, td, tr, a, h1 {
+            font-family: Raleway;
+        }
+    </style>
+</head>
+<body th:inline="text" >
+<h1>Invoice for <span th:text="${name}"></span></h1>
+<table width="100%" border="1px">
+    <tr>
+        <td>Work done by [[${name}]]</td>
+        <td width="20%">€ 20</td>
+        <td width="20%">€ 20</td>
+    </tr>
+</table>
+</body>
+</html>
