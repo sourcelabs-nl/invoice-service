@@ -25,6 +25,8 @@
         }
 
         th {
+            border-bottom: 1px dotted #909090;
+            border-top: 1px dotted #909090;
             background: #f0f0f0;
             font-size: 10pt;
         }
@@ -45,15 +47,30 @@
             background: #f0f0f0;
             border-bottom: 1px dotted #909090;
             border-top: 1px dotted #909090;
+            font-weight: bold;
         }
 
         .subtotal {
             border-bottom: 1px dotted #f1f1f1;
-            font-weight: bold;
         }
 
         .large {
             font-size: 10pt;
+        }
+
+        .left {
+            vertical-align: top;
+            text-align: left;
+        }
+
+        .center {
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .right {
+            vertical-align: top;
+            text-align: right;
         }
 
         .details { text-align:right; margin:0px; padding: 0px; width: 100%; }
@@ -66,7 +83,30 @@
     <img th:src="@{classpath:static/img/logo.png}" src="../static/img/logo.png" width="200px"/>
     <h1 style="float:right; margin-right:10px; margin-top:27px;">FACTUUR</h1>
 </div>
-<div id='footer'>Footer stuff</div>
+<div id='footer'>
+    <table width="100%">
+        <tr>
+            <td class="left">
+                <ul class="details">
+                    <li><span><strong>Datum: </strong></span> [[${invoice.invoiceDate}]]</li>
+                    <li><span><strong>Factuurnummer: </strong></span> [[${invoice.invoiceNumber}]]</li>
+                </ul>
+            </td>
+            <td class="center">
+                <ul class="details">
+                    <li><span><strong>Datum: </strong></span> [[${invoice.invoiceDate}]]</li>
+                    <li><span><strong>Factuurnummer: </strong></span> [[${invoice.invoiceNumber}]]</li>
+                </ul>
+            </td>
+            <td class="right">
+                <ul class="details">
+                    <li><span><strong>Datum: </strong></span> [[${invoice.invoiceDate}]]</li>
+                    <li><span><strong>Factuurnummer: </strong></span> [[${invoice.invoiceNumber}]]</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
 
 <table width="100%" cellspacing="0">
     <tr>
@@ -91,8 +131,8 @@
         </td>
         <td style="vertical-align: top; text-align: right;">
             <ul class="details large">
-                <li><span><strong>Factuurnummer: </strong></span> [[${invoice.invoiceNumber}]]</li>
                 <li><span><strong>Datum: </strong></span> [[${invoice.invoiceDate}]]</li>
+                <li><span><strong>Factuurnummer: </strong></span> [[${invoice.invoiceNumber}]]</li>
             </ul>
         </td>
     </tr>
@@ -114,18 +154,23 @@
     </tr>
     <tr>
         <td></td>
-        <td class="subtotal large" colspan="2">Totaal excl. BTW</td>
-        <td class="subtotal large"><ul class="details"><li><span>€</span> [[${invoice.total}]]</li></ul></td>
+        <td class="total" colspan="2">Subtotaal</td>
+        <td class="total"><ul class="details"><li><span>€</span> [[${invoice.total}]]</li></ul></td>
     </tr>
     <tr>
         <td></td>
-        <td class="subtotal large" colspan="2">BTW</td>
-        <td class="subtotal large"><ul class="details"><li><span>€</span> [[${invoice.vat}]]</li></ul></td>
+        <td class="subtotal" colspan="2">BTW-Tarief</td>
+        <td class="subtotal"><ul class="details"><li> [[${invoice.vatPercentage}]]</li></ul></td>
     </tr>
     <tr>
         <td></td>
-        <td class="total large" colspan="2">Te betalen</td>
-        <td class="total large"><ul class="details"><li><span>€</span> [[${invoice.netTotal}]]</li></ul></td>
+        <td class="subtotal" colspan="2">BTW-Bedrag</td>
+        <td class="subtotal"><ul class="details"><li><span>€</span> [[${invoice.vat}]]</li></ul></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="total" colspan="2">Totaal</td>
+        <td class="total"><ul class="details"><li><span>€</span> [[${invoice.netTotal}]]</li></ul></td>
     </tr>
 </table>
 
