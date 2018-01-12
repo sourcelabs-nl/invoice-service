@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        #footer { position: running(footer); }
+        @page {
+            @bottom-center {
+                content: element(footer)
+            }
+            margin:0px;
+            margin-top: 20px;
+            padding:5px;
+            height:100%;
+        }
+        html, body, div, span, td, tr, a, h1 {
+            font-family: Raleway;
+        }
+        th, td {
+            padding: 6px;
+        }
+        th {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body th:inline="text" >
+
+<div class='footer'><img th:src="@{classpath:static/img/logo.png}" src="../static/img/logo.png" width="200px;" /></div>
+
+<h1>Invoice for <span th:text="${invoice.name}"></span></h1>
+<table width="100%">
+    <tr>
+        <th style="text-align: left">Omschrijving</th>
+        <th width="75px" style="text-align: center">Aantal</th>
+        <th width="75px" style="text-align: center">Tarief</th>
+        <th width="75px" style="text-align: center">Totaal</th>
+    </tr>
+    <tr>
+        <td>Work done by [[${name}]]</td>
+        <td width="75px" style="text-align: center">75</td>
+        <td width="75px" style="text-align: center">€ 20</td>
+        <td width="75px" style="text-align: center">€ 20</td>
+    </tr>
+    <tr>
+        <td>Work done by [[${name}]]</td>
+        <td width="75px" style="text-align: center">75</td>
+        <td width="75px" style="text-align: center">€ 20</td>
+        <td width="75px" style="text-align: center">€ 20</td>
+    </tr>
+    <tr>
+        <td>Work done by [[${name}]]</td>
+        <td width="75px" style="text-align: center">75</td>
+        <td width="75px" style="text-align: center">€ 20</td>
+        <td width="75px" style="text-align: center">€ 20</td>
+    </tr>
+</table>
+<div class='footer'>Footer</div>
+</body>
+</html>

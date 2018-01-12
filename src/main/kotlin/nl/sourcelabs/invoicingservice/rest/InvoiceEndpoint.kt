@@ -1,5 +1,6 @@
 package nl.sourcelabs.invoicingservice.rest
 
+import nl.sourcelabs.invoicingservice.domain.*
 import nl.sourcelabs.invoicingservice.pdf.*
 import org.springframework.web.bind.annotation.*
 import org.thymeleaf.context.*
@@ -12,7 +13,7 @@ class InvoiceEndpoint(val exporter: TemplatePdfExporter, val servletContext: Ser
     @GetMapping("/api/invoice")
     fun getInvoice(request: HttpServletRequest, response: HttpServletResponse) {
         val context = WebContext(request, response, servletContext)
-        context.setVariable("name", "Jarno")
+        context.setVariable("invoice", createInvoiceData())
 
         exporter.exportTemplate("invoice", context, response.outputStream)
     }

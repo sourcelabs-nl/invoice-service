@@ -1,26 +1,133 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <style>
-        @page {
-            margin:0px;
-            padding:5px;
+        /*#header { position: running(header); }*/
+        #footer {
+            position: running(footer);
         }
 
-        html, body, div, span, td, tr, a, h1 {
-            font-family: Raleway;
+        @page {
+            @top-center {
+                content: element(header);
+            }
+            @bottom-center {
+                content: element(footer);
+            }
         }
+
+        html, body {
+            font-family: Raleway;
+            font-size: 8pt;
+        }
+
+        th, td {
+            padding: 6px;
+        }
+
+        th {
+            background: #f0f0f0;
+            font-size: 10pt;
+        }
+
+        div, h1, h2, h3, h4, h5, h6, a {
+            margin-bottom: 20px;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .invoiceline {
+            border-bottom: 1px dotted #f1f1f1;
+        }
+
+        .total {
+            background: #f0f0f0;
+            border-bottom: 1px dotted #909090;
+            border-top: 1px dotted #909090;
+        }
+
+        .subtotal {
+            border-bottom: 1px dotted #f1f1f1;
+            font-weight: bold;
+        }
+
+        .large {
+            font-size: 10pt;
+        }
+
+        .details { text-align:right; margin:0px; padding: 0px; width: 100%; }
+        .details li { list-style:none; margin:0px; }
+        .details span { float:left; margin:0px; }
     </style>
 </head>
-<body th:inline="text" >
-<img th:src="@{classpath:templates/download.jpeg}" width="300px;" style="border:1px solid black;" />
-<h1>Invoice for <span th:text="${name}"></span></h1>
-<table width="100%" style="border: 1px solid #606060;">
+<body xmlns:th="http://www.w3.org/1999/xhtml" th:inline="text">
+<div id='header'>
+    <img th:src="@{classpath:static/img/logo.png}" src="../static/img/logo.png" width="200px"/>
+    <h1 style="float:right; margin-right:10px; margin-top:27px;">FACTUUR</h1>
+</div>
+<div id='footer'>Footer stuff</div>
+
+<table width="100%" cellspacing="0">
     <tr>
-        <td>Work done by [[${name}]]</td>
-        <td width="20%">€ 20</td>
-        <td width="20%">€ 20</td>
+        <td style="vertical-align: top" width="60%">
+            <div class="large">
+                <strong>Sourcelabs B.V.</strong><br />
+                Tempteltuinlaan 8<br />
+                3452 SL Vleuten<br />
+                Email: <a href="mailto:administratie@sourcelabs.nl">administratie@bol.com</a><br />
+                Telefoon: +31 (0)6 46 436 181
+            </div>
+
+            <h2>Factuuradres</h2>
+
+            <div class="large">
+                <strong>[[${invoice.client}]]</strong><br />
+                Tempteltuinlaan 8<br />
+                3452 SL Vleuten<br />
+                Email: <a href="mailto:administratie@sourcelabs.nl">administratie@bol.com</a><br />
+                Telefoon: +31 (0)6 46 436 181
+            </div>
+        </td>
+        <td style="vertical-align: top; text-align: right;">
+            <ul class="details large">
+                <li><span><strong>Factuurnummer: </strong></span> [[${invoice.invoiceNumber}]]</li>
+                <li><span><strong>Datum: </strong></span> [[${invoice.invoiceDate}]]</li>
+            </ul>
+        </td>
     </tr>
 </table>
+
+
+<table width="100%" cellspacing="0">
+    <tr>
+        <th style="text-align: left">Omschrijving</th>
+        <th class="right" width="50px">Aantal</th>
+        <th class="right" width="70px">Tarief</th>
+        <th class="right" width="70px">Totaal</th>
+    </tr>
+    <tr th:each="line : ${invoice.invoicelines}">
+        <td class="invoiceline">[[${line.description}]]</td>
+        <td class="invoiceline right">[[${line.quantity}]]</td>
+        <td class="invoiceline right"><ul class="details"><li><span>€</span> [[${line.price}]]</li></ul></td>
+        <td class="invoiceline right"><ul class="details"><li><span>€</span> [[${line.total}]]</li></ul></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="subtotal large" colspan="2">Totaal excl. BTW</td>
+        <td class="subtotal large"><ul class="details"><li><span>€</span> [[${invoice.total}]]</li></ul></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="subtotal large" colspan="2">BTW</td>
+        <td class="subtotal large"><ul class="details"><li><span>€</span> [[${invoice.vat}]]</li></ul></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td class="total large" colspan="2">Te betalen</td>
+        <td class="total large"><ul class="details"><li><span>€</span> [[${invoice.netTotal}]]</li></ul></td>
+    </tr>
+</table>
+
 </body>
 </html>
